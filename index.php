@@ -1,6 +1,7 @@
 <?php
 require_once './config/const.php';
 require ROOT_PATH . '/models/bdd.php';
+require ROOT_PATH . '/includes/utils.php';
 
 $bdd = new Bdd();
 ?>
