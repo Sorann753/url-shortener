@@ -1,6 +1,8 @@
 <?php
 require_once './config/const.php';
-require ROOT_PATH . '/config/database.conf.php';
+require ROOT_PATH . '/models/bdd.php';
+
+$bdd = new Bdd();
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +20,7 @@ require ROOT_PATH . '/config/database.conf.php';
             <h1>Welcome to Url Shortener !</h1>
             <p class="lead">It's very simple ! You want a preview ? No problem ! Try it below !</p>
             <form class="mx-auto d-flex px-4">
-                <input type="text" class="form-control form-control-dark text-bg-dark text-center" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
+                <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
                 <input type="submit" class="btn btn-lg btn-secondary text-black fw-bold border-white bg-white ms-3" value="Short URL">
             </form>
         </main>
