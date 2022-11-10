@@ -6,7 +6,7 @@ require ROOT_PATH . '/config/database.conf.php';
 <!DOCTYPE html>
 <html lang="en" class="h-100 w-100">
 
-<?php require_once './view/header.php' ?>
+<?php require_once ROOT_PATH . '/includes/header.php' ?>
 
 <body class="d-flex h-100 text-center text-bg-dark spa">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
