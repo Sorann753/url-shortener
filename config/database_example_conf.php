@@ -1,5 +1,7 @@
 <?php
 
+// pour faire fonctionner le site, il faut renommer ce fichier en database.conf.php
+
 $user = 'username';
 $pass = 'password';
 
