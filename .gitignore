@@ -1,2 +1,3 @@
 # Ignoring the config folder
 config/database.php
+*.uxf
