@@ -1,0 +1,19 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "LiveCampus assignment with a team of gods",
+  "main": "index.js",
+  "scripts": {
+    "serve": "php -S localhost:5500"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sorann753/url-shortener.git"
+  },
+  "author": "Sorann753",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sorann753/url-shortener/issues"
+  },
+  "homepage": "https://github.com/Sorann753/url-shortener#readme"
+}
