@@ -4,7 +4,7 @@
   "description": "LiveCampus assignment with a team of gods",
   "main": "index.js",
   "scripts": {
-    "serve": "php -S localhost:5500"
+    "server": "php -S localhost:5500"
   },
   "repository": {
     "type": "git",
