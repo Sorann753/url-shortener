@@ -1,3 +1,4 @@
 # Ignoring the config folder
 config/database.conf.php
 *.uxf
+node_modules/
