@@ -6,7 +6,9 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a href="index?page=home" class="nav-link px-2 text-secondary">Home</a></li>
-            <li><a href="index?page=profile" class="nav-link px-2 text-white">Profile</a></li>
+            <?php if (userConnected()) : ?>
+                <li><a href="index?page=profile" class="nav-link px-2 text-white">Profile</a></li>
+            <?php endif; ?>
         </ul>
 
         <div class="text-end d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
