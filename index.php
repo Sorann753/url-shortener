@@ -10,7 +10,7 @@ $bdd = new Bdd();
 $page = filter_input(INPUT_GET, 'page');
 $shortUrl = filter_input(INPUT_GET, 'url');
 
-if($url){
+if($shortUrl){
     // $trueUrl = $bdd.getUrlByShortUrl($shortUrl);
     $trueUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     header('Location: ' . $trueUrl);
