@@ -89,12 +89,12 @@ class Bdd
      *
      * @param string $url
      * @param string $short_url
+     * @param int $fk_user
      * @param int $nb_click
      * @param bool $is_active
-     * @param int $fk_user
      * @return boolean
      */
-    public function addUrl($url, $short_url, $nb_click, $is_active, $fk_user): bool
+    public function addUrl($url, $short_url, $fk_user, $nb_click = 0, $is_active = true): bool
     {
         $req = $this->pdo->prepare("INSERT INTO url (url, short_url, nb_click, is_active, fk_user) VALUES (?, ?, ?, ?, ?)");
         $req->execute(array($url, $short_url, $nb_click, $is_active, $fk_user));

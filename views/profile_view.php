@@ -28,7 +28,7 @@ $urls = $bdd->getUserUrls(1);
                         <tr>
                             <th scope="row"><?= $url->id ?></th>
                             <td><?= $url->url ?></td>
-                            <td><?= 'http://' . shortenUrl($url->short_url)[0]; ?></td>
+                            <td><?= 'http://' . makeShortUrl()[0]; ?></td>
                             <td><?= $url->nb_click ?></td>
                             <td>
                                 <a href="delete.php?id=<?= $url->id ?>" class="btn btn-outline-danger">
