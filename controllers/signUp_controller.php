@@ -9,11 +9,10 @@ if ($email && $password) {
     $user = $bdd->addUser($email, $password);
     if ($user) {
         $_SESSION['user'] = $user['email'];
-        header("Location: /index.php?page=home");
+        header("Location: index.php?page=home");
         exit();
     }
     else {
         $error = "User not created";
     }
 }
-?>
