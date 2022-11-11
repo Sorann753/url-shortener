@@ -16,7 +16,7 @@ if ($shortUrl) {
         header('Location: ' . $trueUrl);
         exit();
     } else {
-        header("Location: /index.php?page=home");
+        header("Location: index.php?page=home");
         exit();
     }
 }
@@ -31,6 +31,6 @@ if (in_array($page . '_controller.php', $allPages)) {
     require(ROOT_PATH . '/controllers/' . $page . '_controller.php');
     require(ROOT_PATH . '/views/' . $page . '_view.php');
 } else {
-    header("Location: /index.php?page=home");
+    header("Location: index.php?page=home");
     exit();
 }
