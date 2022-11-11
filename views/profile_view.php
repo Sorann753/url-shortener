@@ -33,7 +33,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="index.php?page=profile&active=<?= $url->is_active; ?>" class="btn btn-outline-warning">
+                                <a href="index.php?page=profile&updateId=<?= $url->id; ?>&updateActive=<?= $url->is_active; ?>" class="btn btn-outline-warning">
                                     <?php if ($url->is_active) : ?>
                                         Disable
                                     <?php else : ?>

@@ -126,4 +126,18 @@ class Bdd
         $req->execute(array($id));
         return $req->closeCursor();
     }
+
+    /**
+     * Function which update url if it's active or not
+     *
+     * @param int $id
+     * @param int $is_active
+     * @return boolean
+     */
+    function setActive($id, $is_active): bool
+    {
+        $req = $this->pdo->prepare('UPDATE url SET is_active = ? WHERE id = ?');
+        $req->execute(array($is_active, $id));
+        return $req->closeCursor();
+    }
 }
