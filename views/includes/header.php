@@ -11,8 +11,9 @@
             <?php endif; ?>
         </ul>
 
-        <div class="text-end">
+        <div class="text-end d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
             <?php if (userConnected()) : ?>
+                <p class="lead me-4 pt-2">Bienvenue <strong><?= $_SESSION['user'] ?></strong></p>
                 <a href="index?page=logout" class="btn btn-danger me-2">Logout</a>
             <?php else : ?>
                 <a href="/index.php?page=login" class="btn btn-outline-light me-2">Login</a>
