@@ -74,7 +74,7 @@ class Bdd
         return $data;
     }
 
-    public function getUrlByShortUrl($short_url): string
+    public function getUrlByShortUrl($short_url)
     {
         $req = $this->pdo->prepare('SELECT url FROM url WHERE short_url = ?');
         $req->execute(array($short_url));
