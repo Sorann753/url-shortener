@@ -2,30 +2,26 @@
 $error;
 
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
-if($url){
+if ($url) {
     $shortUrl = makeShortUrl();
 
-    if(userConnected()){
-        try{
+    if (userConnected()) {
+        try {
             $urlAdded = $bdd->addUrl($url, $shortUrl[1], 1);
-            if($urlAdded){
+            if ($urlAdded) {
                 $newShortUrl = $shortUrl[0];
-            }
-            else{
+            } else {
                 $error = "Url not added";
             }
-        }
-        catch(PDOException $e){
+        } catch (PDOException $e) {
             $error = $e->getMessage();
         }
-    }
-    else{
+    } else {
         $urlAdded = $bdd->addUrl($url, $shortUrl, "test");
-        if($urlAdded){
+        if ($urlAdded) {
             $newShortUrl = $shortUrl;
             echo $newShortUrl;
-        }
-        else{
+        } else {
             $error = "Url not added";
         }
     }

@@ -1,5 +1,9 @@
 <?php
-$urls = $bdd->getUserUrls(1);
+
+if (userConnected()) {
+    $fk = $bdd->getUserIdByEmail($_SESSION['user']);
+    $urls = $bdd->getUserUrls($fk);
+}
 
 // Delete
 if (isset($_GET['delete'])) {

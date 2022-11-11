@@ -65,13 +65,14 @@ class Bdd
      * @param string $email
      * @return array
      */
-    public function getUserByEmail($email): array
+    public function getUserIdByEmail($email): int
     {
         $req = $this->pdo->prepare('SELECT * FROM users WHERE email = ?');
         $req->execute(array($email));
-        $data = $req->fetchAll();
+        $req->bindColumn('id', $id);
+        $req->fetch(PDO::FETCH_BOUND);
         $req->closeCursor();
-        return $data[0];
+        return $id;
     }
 
     public function getUrlByShortUrl($short_url)
