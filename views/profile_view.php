@@ -1,6 +1,3 @@
-<?php
-$urls = $bdd->getUserUrls(1);
-?>
 <!DOCTYPE html>
 <html lang="en" class="h-100 w-100">
 
@@ -26,21 +23,21 @@ $urls = $bdd->getUserUrls(1);
                 <tbody>
                     <?php foreach ($urls as $url) : ?>
                         <tr>
-                            <th scope="row"><?= $url->id ?></th>
-                            <td><?= $url->url ?></td>
-                            <td><?= 'http://' . shortenUrl($url->short_url)[0]; ?></td>
-                            <td><?= $url->nb_click ?></td>
+                            <th scope="row"><?= $url->id; ?></th>
+                            <td><?= $url->url; ?></td>
+                            <td><?= 'http://localhost/index?url=' . $url->short_url; ?></td>
+                            <td><?= $url->nb_click; ?></td>
                             <td>
-                                <a href="delete.php?id=<?= $url->id ?>" class="btn btn-outline-danger">
+                                <a href="index.php?page=profile&delete=<?= $url->id; ?>" class="btn btn-outline-danger">
                                     Delete
                                 </a>
                             </td>
                             <td>
-                                <a href="publish.php?id=<?= $url->is_active ?>" class="btn btn-outline-warning">
+                                <a href="index.php?page=profile&active=<?= $url->is_active; ?>" class="btn btn-outline-warning">
                                     <?php if ($url->is_active) : ?>
-                                        Unpublish
+                                        Disable
                                     <?php else : ?>
-                                        Publish
+                                        Enable
                                     <?php endif; ?>
                                 </a>
                             </td>
