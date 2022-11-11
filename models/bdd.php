@@ -40,7 +40,7 @@ class Bdd
     {
         $req = $this->pdo->prepare('SELECT * FROM url WHERE fk_user = ?');
         $req->execute(array($fk_user));
-        $data = $req->fetchAll();
+        $data = $req->fetchAll(PDO::FETCH_OBJ);
         $req->closeCursor();
         return $data;
     }
@@ -74,7 +74,7 @@ class Bdd
         return $data;
     }
 
-    public function getUrlByShortUrl($short_url): string
+    public function getUrlByShortUrl($short_url)
     {
         $req = $this->pdo->prepare('SELECT url FROM url WHERE short_url = ?');
         $req->execute(array($short_url));
