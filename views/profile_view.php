@@ -10,41 +10,41 @@
 
         <!-- CONTENT -->
         <main class="px-3">
-            <table class="rounded table table-dark">
-                <thead>
-                    <tr>
-                        <th class="col">#</th>
-                        <th class="col">Original</th>
-                        <th class="col">Shortened</th>
-                        <th class="col">Times clicked</th>
-                        <th colspan="2" class="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($urls as $url) : ?>
+            <div class="rounded border p-3">
+                <table class="table table-dark">
+                    <thead>
                         <tr>
-                            <th scope="row"><?= $url->id; ?></th>
-                            <td><?= $url->url; ?></td>
-                            <td><?= 'http://localhost/index?url=' . $url->short_url; ?></td>
-                            <td><?= $url->nb_click; ?></td>
-                            <td>
-                                <a href="index.php?page=profile&delete=<?= $url->id; ?>" class="btn btn-outline-danger">
-                                    Delete
-                                </a>
-                            </td>
-                            <td>
-                                <a href="index.php?page=profile&updateId=<?= $url->id; ?>&updateActive=<?= $url->is_active; ?>" class="btn btn-outline-warning">
-                                    <?php if ($url->is_active) : ?>
-                                        Disable
-                                    <?php else : ?>
-                                        Enable
-                                    <?php endif; ?>
-                                </a>
-                            </td>
+                            <th class="col">Original</th>
+                            <th class="col">Shortened</th>
+                            <th class="col">Times clicked</th>
+                            <th colspan="2" class="col">Actions</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($urls as $url) : ?>
+                            <tr>
+                                <td><?= $url->url; ?></td>
+                                <td><?= 'http://localhost/index?url=' . $url->short_url; ?></td>
+                                <td><?= $url->nb_click; ?></td>
+                                <td>
+                                    <a href="index.php?page=profile&delete=<?= $url->id; ?>" class="btn btn-outline-danger">
+                                        Delete
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="index.php?page=profile&updateId=<?= $url->id; ?>&updateActive=<?= $url->is_active; ?>" class="btn btn-outline-warning">
+                                        <?php if ($url->is_active) : ?>
+                                            Disable
+                                        <?php else : ?>
+                                            Enable
+                                        <?php endif; ?>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </main>
 
         <!-- FOOTER -->
