@@ -60,7 +60,7 @@ class Bdd
     }
 
     /**
-     * Function which return a user thanks to his email.
+     * Function which return an id of the user thanks to his email.
      *
      * @param string $email
      * @return array
@@ -73,6 +73,21 @@ class Bdd
         $req->fetch(PDO::FETCH_BOUND);
         $req->closeCursor();
         return $id;
+    }
+
+    /**
+     * Function which return an id of the user thanks to his email.
+     *
+     * @param string $email
+     * @return array
+     */
+    public function getUserByEmail($email): stdClass
+    {
+        $req = $this->pdo->prepare('SELECT * FROM users WHERE email = ?');
+        $req->execute(array($email));
+        $data = $req->fetch(PDO::FETCH_OBJ);
+        $req->closeCursor();
+        return $data;
     }
 
     public function getUrlByShortUrl($short_url)

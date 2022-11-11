@@ -1,3 +1,3 @@
 <?php
-define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT']);
-define('BASE_URL', 'http://localhost:5500/');
+define('ROOT_PATH', realpath($_SERVER['DOCUMENT_ROOT'] . '/url-shortener'));
+define('BASE_URL', $_SERVER['SERVER_NAME'] . '/url-shortener');

@@ -5,18 +5,15 @@ $password = filter_input(INPUT_POST, 'password');
 
 if ($email && $password) {
     $user = $bdd->getUserByEmail($email);
-    var_dump($user);
     if ($user) {
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user'] = $user['email'];
-            header("Location: /index.php?page=home");
+        if (password_verify($password, $user->password)) {
+            $_SESSION['user'] = $user->email;
+            header("Location: index.php?page=home");
             exit();
-        }
-        else {
+        } else {
             $error = "Wrong password";
         }
-    }
-    else {
+    } else {
         $error = "User not found";
     }
 }
