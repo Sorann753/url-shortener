@@ -24,7 +24,7 @@
                         <?php foreach ($urls as $url) : ?>
                             <tr>
                                 <td><?= $url->url; ?></td>
-                                <td><?= 'http://localhost/index?url=' . $url->short_url; ?></td>
+                                <td><a href="<?= BASE_URL . '/index.php?url=' . $url->short_url; ?>" class="text-decoration-none text-info"><?= 'http://localhost/index.php?url=' . $url->short_url; ?></a></td>
                                 <td><?= $url->nb_click; ?></td>
                                 <td>
                                     <a href="index.php?page=profile&delete=<?= $url->id; ?>" class="btn btn-outline-danger">

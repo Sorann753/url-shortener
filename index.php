@@ -14,10 +14,10 @@ if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
         header('Location: ' . $trueUrl);
-        exit();
+        die();
     } else {
         header("Location: index.php?page=home");
-        exit();
+        die();
     }
 }
 
