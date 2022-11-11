@@ -49,8 +49,8 @@ class Bdd
      * Function which add a user in the database.
      *
      * @param string $email
-     * @param string $password
-     * @return boolean
+     * @param string $password a hashed password
+     * @return boolean TRUE on succès or FALSE on failure.
      */
     public function addUser($email, $password): bool
     {
@@ -71,7 +71,7 @@ class Bdd
         $req->execute(array($email));
         $data = $req->fetchAll();
         $req->closeCursor();
-        return $data;
+        return $data[0];
     }
 
     public function getUrlByShortUrl($short_url)
