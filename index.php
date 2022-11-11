@@ -11,7 +11,14 @@ $page = filter_input(INPUT_GET, 'page');
 $shortUrl = filter_input(INPUT_GET, 'url');
 
 if ($shortUrl) {
-    header('Location: ' . $bdd->getUrlByShortUrl($shortUrl));
+    $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
+    if ($trueUrl) {
+        header('Location: ' . $trueUrl);
+        exit();
+    } else {
+        header("Location: /index.php?page=home");
+        exit();
+    }
 }
 
 if (!$page) {
