@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "LiveCampus assignment with a team of gods",
   "main": "index.js",
-  "scripts": {
-    "server": "php -S localhost:5500"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sorann753/url-shortener.git"
