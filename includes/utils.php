@@ -8,7 +8,7 @@
 function makeShortUrl(): array
 {
     $key = base64_encode(random_bytes(10));
-    $shortUrl = $_SERVER['SERVER_NAME'] . "/index?url=$key";
+    $shortUrl = BASE_URL . "?url=$key";
 
     return [$shortUrl, $key];
 }

@@ -81,7 +81,7 @@ class Bdd
      * @param string $email
      * @return array
      */
-    public function getUserByEmail($email): stdClass
+    public function getUserByEmail($email): stdClass | bool
     {
         $req = $this->pdo->prepare('SELECT * FROM users WHERE email = ?');
         $req->execute(array($email));

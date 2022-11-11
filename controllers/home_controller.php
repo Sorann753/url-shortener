@@ -2,12 +2,13 @@
 $error;
 
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
+
 if ($url) {
     $shortUrl = makeShortUrl();
 
     if (userConnected()) {
         try {
-            $urlAdded = $bdd->addUrl($url, $shortUrl[1], 1);
+            $urlAdded = $bdd->addUrl($url, $shortUrl[1], $bdd->getUserIdByEmail($_SESSION['user']));
             if ($urlAdded) {
                 $newShortUrl = $shortUrl[0];
             } else {
