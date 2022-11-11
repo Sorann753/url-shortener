@@ -10,8 +10,12 @@
         </ul>
 
         <div class="text-end">
-            <a href="/index.php?page=login" class="btn btn-outline-light me-2">Login</a>
-            <a href="/index.php?page=signUp" class="btn btn-warning">Sign-up</a>
+            <?php if (userConnected()) : ?>
+                <a href="index?page=logout" class="btn btn-danger me-2">Logout</a>
+            <?php else : ?>
+                <a href="/index.php?page=login" class="btn btn-outline-light me-2">Login</a>
+                <a href="/index.php?page=signUp" class="btn btn-warning">Sign-up</a>
+            <?php endif; ?>
         </div>
     </nav>
 </header>

@@ -10,7 +10,7 @@
 
             <!-- CONTENT -->
             <main class="px-3">
-                <h1>Welcome to Url Shortener !</h1>
+                <h1>Welcome <?=(userConnected()) ? $_SESSION['user'] : "" ?> to Url Shortener !</h1>
                 <p class="lead">It's very simple ! You want a previews ? No problem ! Try it below !</p>
                 <form action="" method="POST" class="mx-auto d-flex px-4">
                     <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
