@@ -74,6 +74,15 @@ class Bdd
         return $data;
     }
 
+    public function getUrlByShortUrl($short_url): array
+    {
+        $req = $this->pdo->prepare('SELECT * FROM url WHERE short_url = ?');
+        $req->execute(array($short_url));
+        $data = $req->fetchAll();
+        $req->closeCursor();
+        return $data;
+    }
+
     /**
      * Function which add an url in the database.
      *
