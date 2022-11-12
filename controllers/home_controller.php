@@ -8,7 +8,8 @@ if ($url) {
 
     if (userConnected()) {
         try {
-            $urlAdded = $bdd->addUrl($url, $shortUrl[1], $bdd->getUserIdByEmail($_SESSION['user']));
+            // TODO: catch l'excepion qui est throw si l'url existe déjà et réessayer avec un autre short_url jusqu'à ce que ça marche
+            $urlAdded = $bdd->addUrl($url, $shortUrl[1], $_SESSION['user']);
             if ($urlAdded) {
                 $newShortUrl = $shortUrl[0];
             } else {

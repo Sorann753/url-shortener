@@ -14,7 +14,7 @@ if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
         header('Location: ' . $trueUrl);
-        die();
+        exit();
     } else {
         header("Location: index.php?page=home");
         die();
@@ -32,5 +32,5 @@ if (in_array($page . '_controller.php', $allPages)) {
     require(ROOT_PATH . '/views/' . $page . '_view.php');
 } else {
     header("Location: index.php?page=home");
-    exit();
+    die();
 }

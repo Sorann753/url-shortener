@@ -17,7 +17,7 @@ class Bdd
     }
 
     /**
-     * Function which return all the users from the database.
+     * Get all the users from the database.
      *
      * @return array
      */
@@ -31,13 +31,14 @@ class Bdd
     }
 
     /**
-     * Function which return all the urls of a user from the database.
-     * @param int $fk_user
+     * Get all the urls of a user from the database.
+     * @param string $userEmail
      *
      * @return array
      */
-    public function getUserUrls($fk_user): array
+    public function getUserUrls($userEmail): array
     {
+        $fk_user = $this->getUserIdByEmail($userEmail);
         $req = $this->pdo->prepare('SELECT * FROM url WHERE fk_user = ?');
         $req->execute(array($fk_user));
         $data = $req->fetchAll(PDO::FETCH_OBJ);
@@ -63,7 +64,7 @@ class Bdd
      * Function which return an id of the user thanks to his email.
      *
      * @param string $email
-     * @return array
+     * @return int
      */
     public function getUserIdByEmail($email): int
     {
@@ -76,12 +77,12 @@ class Bdd
     }
 
     /**
-     * Function which return an id of the user thanks to his email.
+     * Function which return an user thanks to his email.
      *
      * @param string $email
-     * @return array
+     * @return stdClass
      */
-    public function getUserByEmail($email): stdClass | bool
+    public function getUserByEmail($email)
     {
         $req = $this->pdo->prepare('SELECT * FROM users WHERE email = ?');
         $req->execute(array($email));
@@ -105,13 +106,14 @@ class Bdd
      *
      * @param string $url
      * @param string $short_url
-     * @param int $fk_user
+     * @param string $userEmail
      * @param int $nb_click
      * @param bool $is_active
      * @return boolean
      */
-    public function addUrl($url, $short_url, $fk_user, $nb_click = 0, $is_active = true): bool
+    public function addUrl($url, $short_url, $userEmail, $nb_click = 0, $is_active = true): bool
     {
+        $fk_user = $this->getUserIdByEmail($userEmail);
         $req = $this->pdo->prepare("INSERT INTO url (url, short_url, nb_click, is_active, fk_user) VALUES (?, ?, ?, ?, ?)");
         $req->execute(array($url, $short_url, $nb_click, $is_active, $fk_user));
         return $req->closeCursor();
