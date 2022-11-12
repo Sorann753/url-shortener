@@ -32,26 +32,31 @@ class Bdd
 
     /**
      * Get all the urls of a user from the database.
+     * 
      * @param string $userEmail
-     *
      * @return array
      */
     public function getUserUrls($userEmail): array
     {
-        $fk_user = $this->getUserIdByEmail($userEmail);
-        $req = $this->pdo->prepare('SELECT * FROM url WHERE fk_user = ?');
-        $req->execute(array($fk_user));
+        // $fk_user = $this->getUserIdByEmail($userEmail);
+        $req = $this->pdo->prepare(<<<EOL
+            SELECT url.*
+            FROM url, users
+            WHERE users.email = ?
+            AND url.fk_user = users.id
+        EOL);
+        $req->execute(array($userEmail));
         $data = $req->fetchAll(PDO::FETCH_OBJ);
         $req->closeCursor();
         return $data;
     }
 
     /**
-     * Function which add a user in the database.
+     * Add a user in the database.
      *
      * @param string $email
      * @param string $password a hashed password
-     * @return boolean TRUE on succès or FALSE on failure.
+     * @return boolean TRUE on success or FALSE on failure.
      */
     public function addUser($email, $password): bool
     {
@@ -61,7 +66,7 @@ class Bdd
     }
 
     /**
-     * Function which return an id of the user thanks to his email.
+     * Get the id of the user thanks to his email.
      *
      * @param string $email
      * @return int
@@ -77,7 +82,7 @@ class Bdd
     }
 
     /**
-     * Function which return an user thanks to his email.
+     * Get a user thanks to his email.
      *
      * @param string $email
      * @return stdClass
@@ -91,6 +96,12 @@ class Bdd
         return $data;
     }
 
+    /**
+     * Get the url pointed by the short url
+     * 
+     * @param string $shortUrl
+     * @return string
+     */
     public function getUrlByShortUrl($short_url)
     {
         $req = $this->pdo->prepare('SELECT url FROM url WHERE short_url = ?');
@@ -102,7 +113,7 @@ class Bdd
     }
 
     /**
-     * Function which add an url in the database.
+     * Add a url to the database.
      *
      * @param string $url
      * @param string $short_url
@@ -120,7 +131,7 @@ class Bdd
     }
 
     /**
-     * Function which delete an user.
+     * Delete a user.
      *
      * @param int $id
      * @return boolean
@@ -133,29 +144,51 @@ class Bdd
     }
 
     /**
-     * Function which delete an url.
+     * Delete a url.
      *
-     * @param int $id
+     * @param int $urlId
      * @return boolean
      */
-    public function deleteUrlByID($id): bool
+    public function deleteUrlByID($urlId): bool
     {
         $req = $this->pdo->prepare('DELETE FROM url WHERE id = ?');
-        $req->execute(array($id));
+        $req->execute(array($urlId));
         return $req->closeCursor();
     }
 
     /**
-     * Function which update url if it's active or not
+     * Set wether url is active or not
      *
-     * @param int $id
+     * @param int $urlId
      * @param int $is_active
      * @return boolean
      */
-    function setActive($id, $is_active): bool
+    function setActive($urlId, $is_active): bool
     {
         $req = $this->pdo->prepare('UPDATE url SET is_active = ? WHERE id = ?');
-        $req->execute(array($is_active, $id));
+        $req->execute(array($is_active, $urlId));
         return $req->closeCursor();
+    }
+
+    /**
+     * Check that a user is the owner of a url
+     * 
+     * @param string $urlId
+     * @param string $userEmail
+     * @return boolean
+     */
+    function validateUrlOwner($urlId, $userEmail): bool
+    {
+        $req = $this->pdo->prepare(<<<EOL
+            SELECT users.*
+            FROM url, users
+            WHERE url.id = ?
+            AND users.email = ?
+            AND url.fk_user = users.id
+        EOL);
+        $req->execute(array($urlId, $userEmail));
+        $data = $req->fetch(PDO::FETCH_OBJ);
+        $req->closeCursor();
+        return $data != NULL;
     }
 }
