@@ -21,8 +21,9 @@
                 <section class="alert alert-success mt-4 border rounded d-flex flex-column px-4 justify-content-center" role="alert">
                     <h4 class="alert-heading">Your short url is ready !</h4>
                     <p>Copy this url and share it with your friends !</p>
-                    <hr>
-                    <p class="mb-0 text-center text-info bg-dark rounded mx-5 justify-content-center"><?= $newShortUrl ?></p>
+                    <a class="mb-0 text-center text-info bg-dark rounded mx-5 justify-content-center"><?= $newShortUrl ?></a>
+                    <p>Or use this QR code</p>
+                    <img width="150" height="150" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode($newShortUrl) ?>" alt="QR Code" class="mx-auto">
                 </section>
             <?php endif; ?>
         </main>

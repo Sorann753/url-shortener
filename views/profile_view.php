@@ -40,6 +40,8 @@
                                         <?php endif; ?>
                                     </a>
                                 </td>
+                                
+                                <!-- TODO: add a button to show the QR code -->
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
