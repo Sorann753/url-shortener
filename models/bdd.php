@@ -104,7 +104,7 @@ class Bdd
      */
     public function getUrlByShortUrl($short_url)
     {
-        $req = $this->pdo->prepare('SELECT url FROM url WHERE short_url = ?');
+        $req = $this->pdo->prepare('SELECT url FROM url WHERE short_url = ? AND is_active = 1');
         $req->execute(array($short_url));
         $req->bindColumn('url', $url);
         $req->fetch(PDO::FETCH_BOUND);
