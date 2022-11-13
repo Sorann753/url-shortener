@@ -21,4 +21,11 @@
             <?php endif; ?>
         </div>
     </nav>
+    <?php if (isset($error)){ ?>
+            
+        <popup class="alert alert-danger" role="alert">
+        <?php echo $error; ?>
+        </popup>
+
+    <?php } ?>
 </header>

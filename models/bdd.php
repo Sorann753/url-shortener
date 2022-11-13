@@ -191,4 +191,18 @@ class Bdd
         $req->closeCursor();
         return $data != NULL;
     }
+
+    /**
+     * increment the number of click of the url
+     * 
+     * @param string $short_url
+     * @return boolean
+     */
+    function  incrementUrlClickNumber($short_url)
+    {
+        var_dump($short_url);
+        $req = $this->pdo->prepare('UPDATE url SET nb_click = nb_click + 1 WHERE short_url = ?');
+        $req->execute(array($short_url));
+        return $req->closeCursor();
+    }
 }

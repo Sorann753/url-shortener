@@ -13,6 +13,7 @@ $shortUrl = filter_input(INPUT_GET, 'url');
 if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
+        $bdd->incrementUrlClickNumber($shortUrl);
         header('Location: ' . $trueUrl);
         exit();
     } else {
