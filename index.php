@@ -22,6 +22,7 @@ try{
 if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
+        $bdd->incrementUrlClickNumber($shortUrl);
         header('Location: ' . $trueUrl);
         exit();
     } else {
