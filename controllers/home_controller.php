@@ -1,5 +1,4 @@
 <?php
-$error;
 
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
 
@@ -7,24 +6,22 @@ if ($url) {
     $shortUrl = makeShortUrl();
 
     if (userConnected()) {
-        try {
-            // TODO: catch l'excepion qui est throw si l'url existe déjà et réessayer avec un autre short_url jusqu'à ce que ça marche
-            $urlAdded = $bdd->addUrl($url, $shortUrl[1], $_SESSION['user']);
-            if ($urlAdded) {
-                $newShortUrl = $shortUrl[0];
-            } else {
-                $error = "Url not added";
+        for($nb_try = 0; $nb_try < 10; $nb_try++){
+            try{
+                $urlAdded = $bdd->addUrl($url, $shortUrl["key"], $_SESSION['user']);
+                break;
+            } catch (PDOException $e) {
+                $shortUrl = makeShortUrl();
             }
-        } catch (PDOException $e) {
-            $error = $e->getMessage();
+        }
+
+        if ($urlAdded) {
+            $newShortUrl = $shortUrl["full"];
+        } else {
+            $error = "Something went wrong, your url could not be created";
         }
     } else {
-        $urlAdded = $bdd->addUrl($url, $shortUrl, "test");
-        if ($urlAdded) {
-            $newShortUrl = $shortUrl;
-            echo $newShortUrl;
-        } else {
-            $error = "Url not added";
-        }
+    
+        $error = "You must be connected to add an url";
     }
 }

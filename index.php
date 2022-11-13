@@ -5,10 +5,19 @@ require_once './config/const.php';
 require ROOT_PATH . '/models/bdd.php';
 require ROOT_PATH . '/includes/utils.php';
 
-$bdd = new Bdd();
-
 $page = filter_input(INPUT_GET, 'page');
 $shortUrl = filter_input(INPUT_GET, 'url');
+
+if (!$page) {
+    $page = 'home';
+}
+
+try{
+    $bdd = new Bdd();
+} catch (PDOException $e) {
+    header("Location: error.php?error=" . urlencode($e->getMessage()) . "&page=$page");
+    die("[CRITICAL ERROR] " . $e->getMessage());
+}
 
 if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
@@ -19,10 +28,6 @@ if ($shortUrl) {
         header("Location: index.php?page=home");
         die();
     }
-}
-
-if (!$page) {
-    $page = 'home';
 }
 
 $allPages = scandir(ROOT_PATH . '/controllers/');

@@ -10,7 +10,7 @@ function makeShortUrl(): array
     $key = base64_encode(random_bytes(10));
     $shortUrl = BASE_URL . "?url=$key";
 
-    return [$shortUrl, $key];
+    return ["full" => $shortUrl, "key" => $key];
 }
 
 /**

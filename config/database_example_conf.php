@@ -2,6 +2,12 @@
 
 // pour faire fonctionner le site, il faut renommer ce fichier en database.conf.php
 
+/**
+ * Create a PDO object to connect to the database
+ * 
+ * @return PDO
+ * @throws PDOException if the connection failed
+ */
 function getBdd(): PDO
 {
     $user = 'username';
@@ -21,11 +27,6 @@ function getBdd(): PDO
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 
-    try {
-        $bdd = new PDO($dsn, $user, $pass, $options);
-    } catch (PDOException $e) {
-        throw new PDOException($e->getMessage(), (int)$e->getCode());
-    }
-
+    $bdd = new PDO($dsn, $user, $pass, $options);
     return $bdd;
 }
