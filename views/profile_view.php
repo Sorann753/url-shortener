@@ -11,12 +11,13 @@
         <!-- CONTENT -->
         <main class="px-3">
             <div class="rounded border p-3">
-                <table class="table table-dark">
+                <table class="table table-dark table-striped table-hover">
                     <thead>
                         <tr>
                             <th class="col">Original</th>
                             <th class="col">Shortened</th>
                             <th class="col">Times clicked</th>
+                            <th class="col">QR Code</th>
                             <th colspan="2" class="col">Actions</th>
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
                                 <td><a href="<?= $url->url; ?>" class="text-decoration-none text-success"><?= $url->url; ?></a></td>
                                 <td><a href="<?= BASE_URL . '?url=' . $url->short_url; ?>" class="text-decoration-none text-info"><?= BASE_URL . '?url=' . $url->short_url; ?></a></td>
                                 <td><?= $url->nb_click; ?></td>
+                                <td><img width="48" height="48" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= BASE_URL . '?url=' . $url->short_url; ?>" alt="QR Code" class="mx-auto"></td>
                                 <td>
                                     <a href="index.php?page=profile&delete=<?= $url->id; ?>" class="btn btn-outline-danger">
                                         Delete
@@ -40,7 +42,7 @@
                                         <?php endif; ?>
                                     </a>
                                 </td>
-                                
+
                                 <!-- TODO: add a button to show the QR code -->
                             </tr>
                         <?php endforeach; ?>

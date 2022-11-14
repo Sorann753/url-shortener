@@ -62,10 +62,10 @@ class Bdd
     {
         $req = $this->pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
         try {
-            $req->execute(array($email, $password));            
+            $req->execute(array($email, $password));
         } catch (\PDOException $error) {
-            return false; 
-        } 
+            return false;
+        }
         return $req->closeCursor();
     }
 
@@ -98,6 +98,16 @@ class Bdd
         $data = $req->fetch(PDO::FETCH_OBJ);
         $req->closeCursor();
         return $data;
+    }
+
+    public function getUsernameByEmail($email): string
+    {
+        $req = $this->pdo->prepare('SELECT username FROM users WHERE email = ?');
+        $req->execute(array($email));
+        $req->bindColumn('username', $username);
+        $req->fetch(PDO::FETCH_BOUND);
+        $req->closeCursor();
+        return $username;
     }
 
     /**
