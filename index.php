@@ -22,15 +22,28 @@ try {
 }
 
 if ($shortUrl) {
-    $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
-    if ($trueUrl) {
-        $bdd->incrementUrlClickNumber($shortUrl);
-        http_response_code(302);
-        header('Location: ' . $trueUrl);
-        exit();
+    // Verify if user connected or not :
+    if (userConnected()) {
+        $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
+        if ($trueUrl) {
+            $bdd->incrementUrlClickNumber($shortUrl);
+            http_response_code(302);
+            header('Location: ' . $trueUrl);
+            exit();
+        } else {
+            header("Location: index.php?page=home");
+            die();
+        }
     } else {
-        header("Location: index.php?page=home");
-        die();
+        if (isset($_SESSION['temporaryUrl'])) {
+            http_response_code(302);
+            header('Location: ' . $_SESSION['temporaryUrl']);
+            unset($_SESSION['temporaryUrl']);
+            die();
+        } else {
+            header("Location: index.php?page=home");
+            die();
+        }
     }
 }
 

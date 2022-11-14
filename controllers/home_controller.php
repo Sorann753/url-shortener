@@ -1,5 +1,5 @@
 <?php
-
+unset($_SESSION['temporaryUrl']);
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
 
 if ($url) {
@@ -20,5 +20,9 @@ if ($url) {
         } else {
             $error = "Something went wrong, your url could not be created";
         }
+    } else {
+        // Cas où pas pas connecté :
+        $newShortUrl = $shortUrl["full"];
+        $_SESSION['temporaryUrl'] = $url;
     }
 }
