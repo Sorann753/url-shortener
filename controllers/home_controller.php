@@ -3,7 +3,7 @@
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
 
 if ($url) {
-    $newShortUrl = makeShortUrl()['full'];
+    $shortUrl = makeShortUrl();
 
     if (userConnected()) {
         for ($nb_try = 0; $nb_try < 10; $nb_try++) {
