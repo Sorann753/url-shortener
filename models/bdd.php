@@ -56,13 +56,14 @@ class Bdd
      *
      * @param string $email
      * @param string $password a hashed password
+     * @param string $username
      * @return boolean TRUE on success or FALSE on failure.
      */
-    public function addUser($email, $password): bool
+    public function addUser($email, $password, $username): bool
     {
-        $req = $this->pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
+        $req = $this->pdo->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
         try {
-            $req->execute(array($email, $password));
+            $req->execute(array($email, $username, $password));
         } catch (\PDOException $error) {
             return false;
         }
