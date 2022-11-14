@@ -16,6 +16,11 @@
                 <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
                 <input type="submit" class="btn btn-lg btn-secondary text-black fw-bold border-white bg-white ms-3" value="Short URL">
             </form>
+            <form enctype="multipart/form-data" action="fileupload_bd.php" method="post">
+                <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                <input type="file" name="file" placeholder="Déposer vos fichiers"/>
+                <input type="submit" />
+            </form>
 
             <?php if (isset($newShortUrl)) : ?>
                 <section class="alert alert-success mt-4 border rounded d-flex flex-column px-4 justify-content-center" role="alert">
