@@ -6,8 +6,8 @@ if ($url) {
     $shortUrl = makeShortUrl();
 
     if (userConnected()) {
-        for($nb_try = 0; $nb_try < 10; $nb_try++){
-            try{
+        for ($nb_try = 0; $nb_try < 10; $nb_try++) {
+            try {
                 $urlAdded = $bdd->addUrl($url, $shortUrl["key"], $_SESSION['user']);
                 break;
             } catch (PDOException $e) {
@@ -20,8 +20,5 @@ if ($url) {
         } else {
             $error = "Something went wrong, your url could not be created";
         }
-    } else {
-    
-        $error = "You must be connected to add an url";
     }
 }
