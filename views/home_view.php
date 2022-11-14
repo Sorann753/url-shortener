@@ -12,14 +12,15 @@
         <main class="px-3">
             <h1>Welcome <?= (userConnected()) ? $bdd->getUsernameByEmail($_SESSION['user']) : "" ?> to Url Shortener !</h1>
             <p class="lead">It's very simple ! You want a previews ? No problem ! Try it below !</p>
-            <form action="" method="POST" class="mx-auto d-flex px-4">
+
+            <form action="" method="POST" class="mx-auto d-flex px-4 form-group">
                 <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
                 <input type="submit" class="btn btn-lg btn-secondary text-black fw-bold border-white bg-white ms-3" value="Short URL">
             </form>
-            <form enctype="multipart/form-data" action="fileupload_bd.php" method="post">
-                <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                <input type="file" name="file" placeholder="Déposer vos fichiers" />
-                <input type="submit" />
+
+            <form enctype="multipart/form-data" class=" mx-auto px-4 mt-4" action="fileupload_bd.php" method="post">
+                <label for="file">Please select your file :</label>
+                <input type="file" class="form-control-file" id="file" name="file" />
             </form>
 
             <?php if (isset($newShortUrl)) : ?>
