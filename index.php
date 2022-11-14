@@ -12,7 +12,7 @@ if (!$page) {
     $page = 'home';
 }
 
-try{
+try {
     $bdd = new Bdd();
 } catch (PDOException $e) {
     header("Location: error.php?error=" . urlencode($e->getMessage()) . "&page=$page");
@@ -23,6 +23,7 @@ if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
         $bdd->incrementUrlClickNumber($shortUrl);
+        http_response_code(302);
         header('Location: ' . $trueUrl);
         exit();
     } else {
