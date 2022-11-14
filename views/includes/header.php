@@ -13,7 +13,7 @@
 
         <div class="text-end d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
             <?php if (userConnected()) : ?>
-                <p class="lead me-4 pt-2">Welcome <strong><?= $_SESSION['user'] ?></strong></p>
+                <p class="lead me-4 pt-2">Welcome <strong><?= $bdd->getUsernameByEmail($_SESSION['user']) ?></strong></p>
                 <a href="index.php?page=logout" class="btn btn-danger me-2">Logout</a>
             <?php else : ?>
                 <a href="index.php?page=login" class="btn btn-outline-light me-2">Login</a>
@@ -21,12 +21,12 @@
             <?php endif; ?>
         </div>
     </nav>
-    <?php if (isset($error)){ ?>
-            
+    <?php if (isset($error)) { ?>
+
         <h2>
             <popu^p class="badge text-bg-danger" role="alert">
                 <?php echo $error; ?>
-            </popup>
+                </popup>
         </h2>
 
     <?php } ?>
