@@ -23,9 +23,11 @@
     </nav>
     <?php if (isset($error)){ ?>
             
-        <popup class="alert alert-danger" role="alert">
-        <?php echo $error; ?>
-        </popup>
+        <h2>
+            <popu^p class="badge text-bg-danger" role="alert">
+                <?php echo $error; ?>
+            </popup>
+        </h2>
 
     <?php } ?>
 </header>

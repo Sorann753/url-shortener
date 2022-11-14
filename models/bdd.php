@@ -61,7 +61,11 @@ class Bdd
     public function addUser($email, $password): bool
     {
         $req = $this->pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-        $req->execute(array($email, $password));
+        try {
+            $req->execute(array($email, $password));            
+        } catch (\PDOException $error) {
+            return false; 
+        } 
         return $req->closeCursor();
     }
 
@@ -200,7 +204,6 @@ class Bdd
      */
     function  incrementUrlClickNumber($short_url)
     {
-        var_dump($short_url);
         $req = $this->pdo->prepare('UPDATE url SET nb_click = nb_click + 1 WHERE short_url = ?');
         $req->execute(array($short_url));
         return $req->closeCursor();

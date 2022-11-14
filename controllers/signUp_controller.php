@@ -13,6 +13,7 @@ if ($email && $password) {
         exit();
     }
     else {
-        $error = "User not created";
+        $error = "Email invalid or already used";
     }
+
 }
