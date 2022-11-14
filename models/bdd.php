@@ -88,13 +88,13 @@ class Bdd
     /**
      * Get a user thanks to his email.
      *
-     * @param string $email
+     * @param string $username
      * @return stdClass
      */
-    public function getUserByEmail($email)
+    public function getUserByEmailOrUsername($username)
     {
-        $req = $this->pdo->prepare('SELECT * FROM users WHERE email = ?');
-        $req->execute(array($email));
+        $req = $this->pdo->prepare('SELECT * FROM users WHERE email = ? OR username = ?');
+        $req->execute(array($username, $username));
         $data = $req->fetch(PDO::FETCH_OBJ);
         $req->closeCursor();
         return $data;

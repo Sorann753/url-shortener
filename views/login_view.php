@@ -13,7 +13,7 @@
             <h1>Login</h1>
             <p class="lead">Please enter your credentials to login.</p>
             <form action="" method="POST" class="mx-auto px-4 row row-cols-3 g-4">
-                <input type="email" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="email" aria-label="Email" name="email" id="email">
+                <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="Username" aria-label="Username" name="username" id="username">
                 <input type="password" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="Password" aria-label="Password" name="password" id="password">
                 <input type="submit" class="btn btn-lg btn-secondary text-black fw-bold border-white bg-white w-100" value="Login">
             </form>

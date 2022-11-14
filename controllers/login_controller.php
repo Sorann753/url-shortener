@@ -1,10 +1,10 @@
 <?php
 
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+$username = filter_input(INPUT_POST, 'username');
 $password = filter_input(INPUT_POST, 'password');
 
-if ($email && $password) {
-    $user = $bdd->getUserByEmail($email);
+if ($username && $password) {
+    $user = $bdd->getUserByEmailOrUsername($username);
     if ($user) {
         if (password_verify($password, $user->password)) {
             $_SESSION['user'] = $user->email;
@@ -14,6 +14,6 @@ if ($email && $password) {
             $error = "Wrong password";
         }
     } else {
-        $error = "User not found";
+        $error = "Wrong credentials";
     }
 }
