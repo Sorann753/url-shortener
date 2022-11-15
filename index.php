@@ -23,7 +23,6 @@ try {
 }
 
 if ($shortUrl) {
-    // Verify if user connected or not :
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
         $bdd->incrementUrlClickNumber($shortUrl);
