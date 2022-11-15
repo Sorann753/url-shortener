@@ -30,7 +30,7 @@ function userConnected(): bool
  * @param string $type
  * @param string $message
  * @param string $origin
- * @param int $level (1:CRITICAL, 2:ERROR, 3:INFO, 4:DEBUG)
+ * @param int $level (1:CRITICAL, 2:ERROR, 3:INFO, 4:DEBUG, 5:VERBOSE)
  * @return bool true if the log was written, false otherwise
  */
 function logEvent(string $type, string $message, string $origin = "", int $level = LOG_LVL_INFO): bool
