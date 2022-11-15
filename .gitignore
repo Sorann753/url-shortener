@@ -2,3 +2,4 @@
 config/database.conf.php
 *.uxf
 node_modules/
+logs/

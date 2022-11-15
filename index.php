@@ -17,30 +17,35 @@ if (!$page) {
 try {
     $bdd = new Bdd();
 } catch (PDOException $e) {
-    header("Location: error.php?error=" . urlencode($e->getMessage()) . "&page=$page");
-    die("[CRITICAL ERROR] " . $e->getMessage());
+    header("Location: error.php");
+    logEvent("CRITICAL ERROR", $e->getMessage(), "index.php?page=$page", LOG_LVL_CRITICAL);
+    die();
 }
 
 if ($shortUrl) {
     // Verify if user connected or not :
-    if (userConnected()) {
+    if (userConnected()) { //! ISSUE : unconnected user can't follow short url from other users
         $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
         if ($trueUrl) {
             $bdd->incrementUrlClickNumber($shortUrl);
+            logEvent("REDIRECT", "?url=$shortUrl <=> $trueUrl", "index.php");
             http_response_code(302);
             header('Location: ' . $trueUrl);
             exit();
         } else {
+            logEvent("REDIRECT-404", "URL not found", "index.php?url=$shortUrl", LOG_LVL_VERBOSE);
             header("Location: index.php?page=home");
             die();
         }
     } else {
         if (isset($_SESSION['temporaryUrl'])) {
+            logEvent("ANON-REDIRECT", "?url=$shortUrl <=> " . $_SESSION['temporaryUrl'], "index.php", LOG_LVL_DEBUG);
             http_response_code(302);
             header('Location: ' . $_SESSION['temporaryUrl']);
             unset($_SESSION['temporaryUrl']);
             die();
         } else {
+            logEvent("REDIRECT-404", "URL not found", "index.php?url=$shortUrl", LOG_LVL_VERBOSE);
             header("Location: index.php?page=home");
             die();
         }
@@ -50,9 +55,11 @@ if ($shortUrl) {
 $allPages = scandir(ROOT_PATH . '/controllers/');
 
 if (in_array($page . '_controller.php', $allPages)) {
+    logEvent('GET', "?page=$page", "index.php");
     require(ROOT_PATH . '/controllers/' . $page . '_controller.php');
     require(ROOT_PATH . '/views/' . $page . '_view.php');
 } else {
+    logEvent('GET', "?page=home", "index.php");
     header("Location: index.php?page=home");
     die();
 }
