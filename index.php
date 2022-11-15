@@ -23,32 +23,23 @@ try {
 }
 
 if ($shortUrl) {
-    // Verify if user connected or not :
-    if (userConnected()) { //! ISSUE : unconnected user can't follow short url from other users
-        $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
-        if ($trueUrl) {
-            $bdd->incrementUrlClickNumber($shortUrl);
-            logEvent("REDIRECT", "?url=$shortUrl <=> $trueUrl", "index.php");
-            http_response_code(302);
-            header('Location: ' . $trueUrl);
-            exit();
-        } else {
-            logEvent("REDIRECT-404", "URL not found", "index.php?url=$shortUrl", LOG_LVL_VERBOSE);
-            header("Location: index.php?page=home");
-            die();
-        }
+    $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
+    if ($trueUrl) {
+        $bdd->incrementUrlClickNumber($shortUrl);
+        logEvent("REDIRECT", "?url=$shortUrl <=> $trueUrl", "index.php");
+        http_response_code(302);
+        header('Location: ' . $trueUrl);
+        exit();
+    } elseif (isset($_SESSION['temporaryUrl'])) {
+        logEvent("ANON-REDIRECT", "?url=$shortUrl <=> " . $_SESSION['temporaryUrl'], "index.php", LOG_LVL_DEBUG);
+        http_response_code(302);
+        header('Location: ' . $_SESSION['temporaryUrl']);
+        unset($_SESSION['temporaryUrl']);
+        die();
     } else {
-        if (isset($_SESSION['temporaryUrl'])) {
-            logEvent("ANON-REDIRECT", "?url=$shortUrl <=> " . $_SESSION['temporaryUrl'], "index.php", LOG_LVL_DEBUG);
-            http_response_code(302);
-            header('Location: ' . $_SESSION['temporaryUrl']);
-            unset($_SESSION['temporaryUrl']);
-            die();
-        } else {
-            logEvent("REDIRECT-404", "URL not found", "index.php?url=$shortUrl", LOG_LVL_VERBOSE);
-            header("Location: index.php?page=home");
-            die();
-        }
+        logEvent("REDIRECT-404", "URL not found", "index.php?url=$shortUrl", LOG_LVL_VERBOSE);
+        header("Location: index.php?page=home");
+        die();
     }
 }
 
