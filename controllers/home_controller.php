@@ -2,8 +2,12 @@
 unset($_SESSION['temporaryUrl']);
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
 
-if ($url) {
+if (isset($_POST['submit']) && strlen($url) === 0) {
+    logEvent("ERROR", "Url empty !", "home_controller.php", LOG_LVL_ERROR);
+    $error = "The current url is empty !";
+} elseif ($url) {
     logEvent('POST', "url=$url", "home_controller.php", LOG_LVL_VERBOSE);
+
     $shortUrl = makeShortUrl();
 
     if (userConnected()) {

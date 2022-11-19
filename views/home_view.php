@@ -17,7 +17,7 @@
             <!-- URL SHORTENER FORM -->
             <form action="" method="POST" class="mx-auto d-flex px-4 form-group">
                 <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-4" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
-                <input type="submit" class="btn btn-lg btn-secondary text-black fw-bold border-white bg-white ms-3" value="Short URL">
+                <input type="submit" name="submit" class="btn btn-lg btn-secondary text-black fw-bold border-white bg-white ms-3" value="Short URL">
             </form>
 
             <!-- UPLOAD FORM -->
