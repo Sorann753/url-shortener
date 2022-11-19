@@ -26,10 +26,32 @@ if ($shortUrl) {
     $trueUrl = $bdd->getUrlByShortUrl($shortUrl);
     if ($trueUrl) {
         $bdd->incrementUrlClickNumber($shortUrl);
-        logEvent("REDIRECT", "?url=$shortUrl <=> $trueUrl", "index.php");
-        http_response_code(302);
-        header('Location: ' . $trueUrl);
-        exit();
+        if ($bdd->isFile($shortUrl)) {
+            if (file_exists(UPLOAD_PATH) && is_readable(UPLOAD_PATH)) {
+                $size = filesize(UPLOAD_PATH);
+                // Sent the headers
+                header('Content-Type: ' . mime_content_type(UPLOAD_PATH));
+                header('Content-Length: ' . $size);
+                header('Content-Disposition: attachment; filename=' . $trueUrl);
+                header('Content-Transfer-Encoding: binary');
+                // Open the file in binary read-only mode
+                $file = @fopen(UPLOAD_PATH, 'rb');
+
+                if ($file) {
+                    fpassthru($file);
+                    logEvent("DOWNLOAD", "?url=$shortUrl <=> $trueUrl", "index.php");
+                } else {
+                    logEvent("CRITICAL ERROR", "Error when downloading", "index.php?page=$page", LOG_LVL_CRITICAL);
+                }
+            } else {
+                logEvent("CRITICAL ERROR", "Error when downloading", "index.php?page=$page", LOG_LVL_CRITICAL);
+            }
+        } else {
+            logEvent("REDIRECT", "?url=$shortUrl <=> $trueUrl", "index.php");
+            http_response_code(302);
+            header('Location: ' . $trueUrl);
+            exit();
+        }
     } elseif (isset($_SESSION['temporaryUrl'])) {
         logEvent("ANON-REDIRECT", "?url=$shortUrl <=> " . $_SESSION['temporaryUrl'], "index.php", LOG_LVL_DEBUG);
         http_response_code(302);

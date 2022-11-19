@@ -135,13 +135,14 @@ class Bdd
      * @param string $userEmail
      * @param int $nb_click
      * @param bool $is_active
+     * @param bool $is_file
      * @return boolean
      */
-    public function addUrl($url, $short_url, $userEmail, $nb_click = 0, $is_active = true): bool
+    public function addUrl($url, $short_url, $userEmail, $is_file = false, $nb_click = 0, $is_active = true): bool
     {
         $fk_user = $this->getUserIdByEmail($userEmail);
-        $req = $this->pdo->prepare("INSERT INTO url (url, short_url, nb_click, is_active, fk_user) VALUES (?, ?, ?, ?, ?)");
-        $req->execute(array($url, $short_url, $nb_click, $is_active, $fk_user));
+        $req = $this->pdo->prepare("INSERT INTO url (url, short_url, nb_click, is_active, is_file, fk_user) VALUES (?, ?, ?, ?, ?, ?)");
+        $req->execute(array($url, $short_url, $nb_click, $is_active, $is_file, $fk_user));
         return $req->closeCursor();
     }
 
@@ -178,7 +179,7 @@ class Bdd
      * @param int $is_active
      * @return boolean
      */
-    function setActive($urlId, $is_active): bool
+    public function setActive($urlId, $is_active): bool
     {
         $req = $this->pdo->prepare('UPDATE url SET is_active = ? WHERE id = ?');
         $req->execute(array($is_active, $urlId));
@@ -192,7 +193,7 @@ class Bdd
      * @param string $userEmail
      * @return boolean
      */
-    function validateUrlOwner($urlId, $userEmail): bool
+    public function validateUrlOwner($urlId, $userEmail): bool
     {
         $req = $this->pdo->prepare(<<<EOL
             SELECT users.*
@@ -213,10 +214,41 @@ class Bdd
      * @param string $short_url
      * @return boolean
      */
-    function  incrementUrlClickNumber($short_url)
+    public function incrementUrlClickNumber($short_url)
     {
         $req = $this->pdo->prepare('UPDATE url SET nb_click = nb_click + 1 WHERE short_url = ?');
         $req->execute(array($short_url));
         return $req->closeCursor();
+    }
+
+    /**
+     * Return the boolean in Url' table to know if the returned url is a real url or an uploaded file
+     *
+     * @param int $urlId
+     * @return boolean
+     */
+    public function isFile($short_url)
+    {
+        $req = $this->pdo->prepare('SELECT is_file FROM url WHERE short_url = ?');
+        $req->execute(array($short_url));
+        $req->bindColumn('is_file', $isFile, PDO::PARAM_BOOL);
+        $req->fetch(PDO::FETCH_BOUND);
+        $req->closeCursor();
+        return $isFile;
+    }
+
+    /**
+     * Return the url object thanks to his id.
+     *
+     * @param int $id
+     * @return void
+     */
+    public function getUrlById($id)
+    {
+        $req = $this->pdo->prepare('SELECT * FROM url WHERE id = ?');
+        $req->execute(array($id));
+        $data = $req->fetch(PDO::FETCH_OBJ);
+        $req->closeCursor();
+        return $data;
     }
 }

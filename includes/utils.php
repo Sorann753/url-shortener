@@ -8,6 +8,7 @@
 function makeShortUrl(): array
 {
     $key = base64_encode(random_bytes(10));
+    $key = str_replace(['+', '/'], '#', $key);
     $shortUrl = BASE_URL . "?url=$key";
 
     return ["full" => $shortUrl, "key" => $key];
@@ -35,7 +36,7 @@ function userConnected(): bool
  */
 function logEvent(string $type, string $message, string $origin = "", int $level = LOG_LVL_INFO): bool
 {
-    if($level > LOG_LEVEL) {
+    if ($level > LOG_LEVEL) {
         return false;
     }
 
@@ -48,9 +49,11 @@ function logEvent(string $type, string $message, string $origin = "", int $level
         }
 
         //write the header line
-        fwrite($newLogFile,
-        $_SERVER['SERVER_SOFTWARE'] . " - " . BASE_URL . PHP_EOL .
-        "Date - Type - User - Message - Origin" . PHP_EOL);
+        fwrite(
+            $newLogFile,
+            $_SERVER['SERVER_SOFTWARE'] . " - " . BASE_URL . PHP_EOL .
+                "Date - Type - User - Message - Origin" . PHP_EOL
+        );
         fclose($newLogFile);
     }
 
