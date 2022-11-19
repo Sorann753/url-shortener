@@ -24,9 +24,9 @@
     <?php if (isset($error)) { ?>
 
         <h2>
-            <popu^p class="badge text-bg-danger" role="alert">
+            <popup class="badge text-bg-danger" role="alert">
                 <?php echo $error; ?>
-                </popup>
+            </popup>
         </h2>
 
     <?php } ?>
