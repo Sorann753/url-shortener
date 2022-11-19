@@ -143,7 +143,7 @@ class Bdd
     {
         $fk_user = $this->getUserIdByEmail($userEmail);
         $req = $this->pdo->prepare("INSERT INTO url (url, short_url, nb_click, is_active, is_file, fk_user) VALUES (?, ?, ?, ?, ?, ?)");
-        $req->execute(array($url, $short_url, $nb_click, $is_active, $is_file, $fk_user));
+        $req->execute(array($url, $short_url, $nb_click, $is_active, $is_file ? 1 : 0, $fk_user));
         return $req->closeCursor();
     }
 

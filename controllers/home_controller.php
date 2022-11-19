@@ -1,6 +1,7 @@
 <?php
 unset($_SESSION['temporaryUrl']);
 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
+$urlAdded = false;
 
 if (isset($_POST['submit']) && strlen($url) === 0) {
     logEvent("ERROR", "Url empty !", "home_controller.php", LOG_LVL_ERROR);
@@ -11,7 +12,7 @@ if (isset($_POST['submit']) && strlen($url) === 0) {
     $shortUrl = makeShortUrl();
 
     if (userConnected()) {
-        for ($nb_try = 0; $nb_try < 10; $nb_try++) {
+        for ($nbTry = 0; $nbTry < 10; $nbTry++) {
             try {
                 $urlAdded = $bdd->addUrl($url, $shortUrl["key"], $_SESSION['user']);
                 break;
@@ -123,7 +124,7 @@ if (isset($_POST['submit']) && strlen($url) === 0) {
                 // All's good ! Create the shortened url :
                 $shortUrl = makeShortUrl();
 
-                for ($nb_try = 0; $nb_try < 10; $nb_try++) {
+                for ($nbTry = 0; $nbTry < 10; $nbTry++) {
                     try {
                         $urlAdded = $bdd->addUrl($filename, $shortUrl["key"], $_SESSION['user'], true);
                         break;
