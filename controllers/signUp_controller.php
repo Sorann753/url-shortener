@@ -9,11 +9,13 @@ if ($email && $password) {
     $password = password_hash($password, PASSWORD_DEFAULT);
     $user = $bdd->addUser($email, $password, $username);
     if ($user) {
+        logEvent("SIGNUP", "User " . $user['email'] . " just created his account", "index.php?page=signup");
         $_SESSION['user'] = $user['email'];
         header("Location: index.php?page=home");
         exit();
     }
     else {
+        logEvent("SIGNUP-ERR", "User $username failed to create his account", "index.php?page=signup", LOG_LVL_VERBOSE);
         $error = "Email invalid or already used";
     }
 

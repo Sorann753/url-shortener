@@ -9,6 +9,7 @@ class Bdd
     public function __construct()
     {
         $this->pdo = getBdd();
+        logEvent("BDD", "Connected to database", "bdd.php", LOG_LVL_DEBUG);
     }
 
     public function __destruct()
