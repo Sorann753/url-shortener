@@ -18,9 +18,7 @@ if ($deleteId) {
         die();
     }
 
-    logEvent("DELETE", "User [" . $_SESSION['user'] . "] deleted url [$deleteId]", "index.php?page=profile");
-    $bdd->deleteUrlByID($deleteId);
-    $url = $bdd->getUrlById($id);
+    $url = $bdd->getUrlById($deleteId);
     if ($bdd->isFile($url->short_url)) {
         if (unlink(UPLOAD_PATH . '/' . $url->url)) {
             logEvent("FILE DELETED", "file: $url->url deleted", "index.php?page=profile");
@@ -29,8 +27,9 @@ if ($deleteId) {
         }
     }
 
+    logEvent("DELETE", "User [" . $_SESSION['user'] . "] deleted url [$deleteId]", "index.php?page=profile");
+    $bdd->deleteUrlByID($deleteId);
 
-    $bdd->deleteUrlByID($id);
     unset($_GET['delete']);
     header('Location: index.php?page=profile');
     exit();
