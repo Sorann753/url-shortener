@@ -5,7 +5,7 @@ if (strpos($server, 'nginx')) {
 } else {
     define('BASE_URL', 'http://localhost/url-shortener');
 }
-define('ROOT_PATH', realpath($_SERVER['DOCUMENT_ROOT'] . '/url-shortener'));
+define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . '/url-shortener');
 
 define('LOG_FILE', ROOT_PATH . "/logs/log-" . date('Y-m-d') . ".log");
 define('LOG_LVL_CRITICAL', 1);
