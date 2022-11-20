@@ -16,7 +16,7 @@
 
             <!-- URL SHORTENER FORM -->
             <form method="POST" class="mx-auto px-4 mt-5 d-flex form-group">
-                <input type="text" class="form-control form-control-dark text-bg-dark text-center" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
+                <input type="text" class="form-control form-control-dark text-bg-dark text-center fs-5" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name="url" id="url">
                 <input type="submit" name="submit" class="btn btn-md btn-secondary text-black fw-bold border-white bg-white ms-3 w-50 fs-5" value="Short URL">
             </form>
 
@@ -35,10 +35,10 @@
                     <h4 class="alert-heading">Your short url is ready !</h4>
                     <?php if (userConnected()) : ?>
                         <p>Copy this url and share it with your friends !</p>
-                    <?php else: ?>
+                    <?php else : ?>
                         <p>You can test this url, however it won't be saved since you're not connected</p>
                     <?php endif; ?>
-                    
+
                     <a href="<?= $newShortUrl ?>" class="mb-0 text-center text-info mx-5 justify-content-center">
                         <?= $newShortUrl ?>
                     </a>
