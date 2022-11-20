@@ -53,7 +53,7 @@ class Bdd
     }
 
     /**
-     * Get the id of the user thanks to his email.
+     * Get the id of the user from his email.
      *
      * @param string $email
      * @return int
@@ -69,10 +69,10 @@ class Bdd
     }
 
     /**
-     * Get a user thanks to his email.
+     * Get a user from his email or username.
      *
      * @param string $username
-     * @return stdClass
+     * @return stdClass or False in case of failure
      */
     public function getUserByEmailOrUsername($username)
     {
@@ -83,7 +83,13 @@ class Bdd
         return $data;
     }
 
-    public function getUsernameByEmail($email): string
+    /**
+     * Get a username from the email of a user.
+     *
+     * @param string $email
+     * @return string or False in case of failure
+     */
+    public function getUsernameByEmail($email)
     {
         $req = $this->pdo->prepare('SELECT username FROM users WHERE email = ?');
         $req->execute(array($email));
@@ -94,10 +100,10 @@ class Bdd
     }
 
     /**
-     * Get the url pointed by the short url
+     * Get the url pointed by a short url
      * 
      * @param string $shortUrl
-     * @return string
+     * @return string or False in case of failure
      */
     public function getUrlByShortUrl($shortUrl)
     {
@@ -110,15 +116,15 @@ class Bdd
     }
 
     /**
-     * Add a url to the database.
+     * Add a new url to the database.
      *
      * @param string $url
      * @param string $short_url
      * @param string $userEmail
+     * @param bool $isFile
      * @param int $nbClick
      * @param bool $isActive
-     * @param bool $isFile
-     * @return boolean
+     * @return boolean TRUE on success or FALSE on failure.
      */
     public function addUrl($url, $shortUrl, $userEmail, $isFile = false, $nbClick = 0, $is_active = true): bool
     {
@@ -129,10 +135,10 @@ class Bdd
     }
 
     /**
-     * Delete a user.
+     * Delete a user from his email.
      *
      * @param string $email
-     * @return boolean
+     * @return boolean TRUE on success or FALSE on failure.
      */
     public function deleteUserByEmail($email): bool
     {
@@ -142,10 +148,10 @@ class Bdd
     }
 
     /**
-     * Delete a url.
+     * Delete a url from his id
      *
      * @param int $urlId
-     * @return boolean
+     * @return boolean TRUE on success or FALSE on failure.
      */
     public function deleteUrlByID($urlId): bool
     {
@@ -155,11 +161,11 @@ class Bdd
     }
 
     /**
-     * Set wether url is active or not
+     * Set wether a url is active or not
      *
      * @param int $urlId
      * @param int $isActive
-     * @return boolean
+     * @return boolean TRUE on success or FALSE on failure.
      */
     public function setActive($urlId, $isActive): bool
     {
@@ -173,7 +179,7 @@ class Bdd
      * 
      * @param string $urlId
      * @param string $userEmail
-     * @return boolean
+     * @return boolean TRUE if the user is the owner of the url, FALSE if not.
      */
     public function validateUrlOwner($urlId, $userEmail): bool
     {
@@ -191,10 +197,10 @@ class Bdd
     }
 
     /**
-     * increment the number of click of the url
+     * increment the number of click on a url
      * 
      * @param string $shortUrl
-     * @return boolean
+     * @return boolean TRUE on success or FALSE on failure.
      */
     public function incrementUrlClickNumber($shortUrl)
     {
@@ -204,10 +210,10 @@ class Bdd
     }
 
     /**
-     * Return the boolean in Url' table to know if the returned url is a real url or an uploaded file
+     * Check if a short url is pointing to a file
      *
-     * @param int $urlId
-     * @return boolean
+     * @param string $short_url
+     * @return boolean TRUE if the url is pointing to a file, FALSE if not.
      */
     public function isFile($shortUrl)
     {
@@ -220,10 +226,10 @@ class Bdd
     }
 
     /**
-     * Return the url object thanks to his id.
+     * Return a url object from its id.
      *
      * @param int $id
-     * @return stdClass
+     * @return stdClass or False in case of failure
      */
     public function getUrlById($id)
     {

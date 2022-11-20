@@ -81,13 +81,18 @@ if (isset($_POST['submit']) && strlen($url) === 0) {
         case UPLOAD_ERR_OK:
             if (userConnected()) {
                 $filename = $_FILES['file']['name'];
+                if(!filter_var($filename)){
+                    logEvent("ERROR", "Filename invalid", "index.php?page=home", LOG_LVL_ERROR);
+                    $error = "Sorry but the name of your file is invalid, please rename it";
+                    die();
+                }
                 logEvent('POST', "filename=$filename", "home_controller.php", LOG_LVL_VERBOSE);
 
                 // Check uploaded file size :
                 if ($_FILES['file']['size']  ===  0 || $_FILES['file']['size'] >= MAX_FILE_SIZE) {
                     logEvent("ERROR", "File size not respected", "index.php?page=home", LOG_LVL_ERROR);
                     $error = "Something went wrong, your file could not be uploaded";
-                    exit();
+                    die();
                 }
 
                 // Check if file being is allowed :

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * handle the removal of an url or a file from the website
+ * @param int $deleteId
+ * @param Bdd $bdd
+ * @return bool TRUE on success or FALSE on failure.
+ */
 function remove($deleteId, $bdd)
 {
     if ($deleteId) {
@@ -29,6 +35,13 @@ function remove($deleteId, $bdd)
     return false;
 }
 
+/**
+ * handle the activation or deactivation of an url
+ * @param int $updateId
+ * @param $isActivate
+ * @param Bdd $bdd
+ * @return void
+ */
 function update($updateId, $is_active, $bdd)
 {
     if ($updateId && isset($_GET['updateActive'])) {
@@ -48,6 +61,12 @@ function update($updateId, $is_active, $bdd)
     }
 }
 
+/**
+ * handle the removal of a user from the website
+ * @param string $deleteAccount
+ * @param Bdd $bdd
+ * @return void
+ */
 function removeUser($deleteAccount, $bdd)
 {
     if (isset($deleteAccount) && userConnected()) {
@@ -69,6 +88,10 @@ function removeUser($deleteAccount, $bdd)
         die();
     }
 }
+
+
+
+
 
 if (userConnected()) {
     $urls = $bdd->getUserUrls($_SESSION['user']);
