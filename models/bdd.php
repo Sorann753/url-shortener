@@ -48,11 +48,7 @@ class Bdd
     public function addUser($email, $password, $username): bool
     {
         $req = $this->pdo->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
-        try {
-            $req->execute(array($email, $username, $password));
-        } catch (\PDOException $error) {
-            return false;
-        }
+        $req->execute(array($email, $username, $password));
         return $req->closeCursor();
     }
 
@@ -119,9 +115,9 @@ class Bdd
      * @param string $url
      * @param string $short_url
      * @param string $userEmail
-     * @param int $nb_click
-     * @param bool $is_active
-     * @param bool $is_file
+     * @param int $nbClick
+     * @param bool $isActive
+     * @param bool $isFile
      * @return boolean
      */
     public function addUrl($url, $shortUrl, $userEmail, $isFile = false, $nbClick = 0, $is_active = true): bool
@@ -162,7 +158,7 @@ class Bdd
      * Set wether url is active or not
      *
      * @param int $urlId
-     * @param int $is_active
+     * @param int $isActive
      * @return boolean
      */
     public function setActive($urlId, $isActive): bool
@@ -197,7 +193,7 @@ class Bdd
     /**
      * increment the number of click of the url
      * 
-     * @param string $short_url
+     * @param string $shortUrl
      * @return boolean
      */
     public function incrementUrlClickNumber($shortUrl)
