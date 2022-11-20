@@ -29,7 +29,7 @@ function remove($deleteId, $bdd)
     return false;
 }
 
-function update($updateId, $is_active, $bdd)
+function update($updateId, $isActive, $bdd)
 {
     if ($updateId && isset($_GET['updateActive'])) {
 
@@ -39,8 +39,8 @@ function update($updateId, $is_active, $bdd)
             die();
         }
 
-        logEvent("UPDATE", ($is_active ? "disabled" : "enabled") . " url [$updateId]", "index.php?page=profile");
-        $bdd->setActive($updateId, $is_active ? 0 : 1);
+        logEvent("UPDATE", ($isActive ? "disabled" : "enabled") . " url [$updateId]", "index.php?page=profile");
+        $bdd->setActive($updateId, $isActive ? 0 : 1);
         unset($_GET['updateId']);
         unset($_GET['updateActive']);
         header('Location: index.php?page=profile');
@@ -92,5 +92,5 @@ if (remove($deleteId, $bdd)) {
 
 // Update
 $updateId = filter_input(INPUT_GET, 'updateId', FILTER_VALIDATE_INT);
-$is_active = filter_input(INPUT_GET, 'updateActive', FILTER_VALIDATE_BOOLEAN);
-update($updateId, $is_active, $bdd);
+$isActive = filter_input(INPUT_GET, 'updateActive', FILTER_VALIDATE_BOOLEAN);
+update($updateId, $isActive, $bdd);
