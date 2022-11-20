@@ -103,10 +103,10 @@ class Bdd
      * @param string $shortUrl
      * @return string
      */
-    public function getUrlByShortUrl($short_url)
+    public function getUrlByShortUrl($shortUrl)
     {
         $req = $this->pdo->prepare('SELECT url FROM url WHERE short_url = ? AND is_active = 1');
-        $req->execute(array($short_url));
+        $req->execute(array($shortUrl));
         $req->bindColumn('url', $url);
         $req->fetch(PDO::FETCH_BOUND);
         $req->closeCursor();
@@ -124,11 +124,11 @@ class Bdd
      * @param bool $is_file
      * @return boolean
      */
-    public function addUrl($url, $short_url, $userEmail, $is_file = false, $nb_click = 0, $is_active = true): bool
+    public function addUrl($url, $shortUrl, $userEmail, $isFile = false, $nbClick = 0, $is_active = true): bool
     {
         $fk_user = $this->getUserIdByEmail($userEmail);
         $req = $this->pdo->prepare("INSERT INTO url (url, short_url, nb_click, is_active, is_file, fk_user) VALUES (?, ?, ?, ?, ?, ?)");
-        $req->execute(array($url, $short_url, $nb_click, $is_active, $is_file ? 1 : 0, $fk_user));
+        $req->execute(array($url, $shortUrl, $nbClick, $is_active, $isFile ? 1 : 0, $fk_user));
         return $req->closeCursor();
     }
 
@@ -165,10 +165,10 @@ class Bdd
      * @param int $is_active
      * @return boolean
      */
-    public function setActive($urlId, $is_active): bool
+    public function setActive($urlId, $isActive): bool
     {
         $req = $this->pdo->prepare('UPDATE url SET is_active = ? WHERE id = ?');
-        $req->execute(array($is_active, $urlId));
+        $req->execute(array($isActive, $urlId));
         return $req->closeCursor();
     }
 
@@ -200,10 +200,10 @@ class Bdd
      * @param string $short_url
      * @return boolean
      */
-    public function incrementUrlClickNumber($short_url)
+    public function incrementUrlClickNumber($shortUrl)
     {
         $req = $this->pdo->prepare('UPDATE url SET nb_click = nb_click + 1 WHERE short_url = ?');
-        $req->execute(array($short_url));
+        $req->execute(array($shortUrl));
         return $req->closeCursor();
     }
 
@@ -213,10 +213,10 @@ class Bdd
      * @param int $urlId
      * @return boolean
      */
-    public function isFile($short_url)
+    public function isFile($shortUrl)
     {
         $req = $this->pdo->prepare('SELECT is_file FROM url WHERE short_url = ?');
-        $req->execute(array($short_url));
+        $req->execute(array($shortUrl));
         $req->bindColumn('is_file', $isFile, PDO::PARAM_BOOL);
         $req->fetch(PDO::FETCH_BOUND);
         $req->closeCursor();
