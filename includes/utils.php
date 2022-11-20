@@ -14,6 +14,8 @@ function makeShortUrl(): array
     return ["full" => $shortUrl, "key" => $key];
 }
 
+
+
 /**
  * check if the user is connected
  * @param none

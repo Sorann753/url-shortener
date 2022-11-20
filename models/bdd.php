@@ -2,6 +2,7 @@
 
 require ROOT_PATH . '/config/database.conf.php';
 
+// interface for the database
 class Bdd
 {
     private ?PDO $pdo = NULL;
@@ -17,20 +18,6 @@ class Bdd
     }
 
     /**
-     * Get all the users from the database.
-     *
-     * @return array
-     */
-    public function getAllUsers(): array
-    {
-        $req = $this->pdo->prepare('SELECT * FROM users');
-        $req->execute();
-        $data = $req->fetchAll();
-        $req->closeCursor();
-        return $data;
-    }
-
-    /**
      * Get all the urls of a user from the database.
      * 
      * @param string $userEmail
@@ -38,7 +25,6 @@ class Bdd
      */
     public function getUserUrls($userEmail): array
     {
-        // $fk_user = $this->getUserIdByEmail($userEmail);
         $req = $this->pdo->prepare(<<<EOL
             SELECT url.*
             FROM url, users

@@ -33,7 +33,12 @@
             <?php if (isset($newShortUrl)) : ?>
                 <section class="alert alert-success mt-4 border rounded d-flex flex-column px-4 justify-content-center" role="alert">
                     <h4 class="alert-heading">Your short url is ready !</h4>
-                    <p>Copy this url and share it with your friends !</p>
+                    <?php if (userConnected()) : ?>
+                        <p>Copy this url and share it with your friends !</p>
+                    <?php else: ?>
+                        <p>You can test this url, however it won't be saved since you're not connected</p>
+                    <?php endif; ?>
+                    
                     <a href="<?= $newShortUrl ?>" class="mb-0 text-center text-info mx-5 justify-content-center">
                         <?= $newShortUrl ?>
                     </a>

@@ -20,9 +20,14 @@ define('UPLOAD_PATH', ROOT_PATH . '/uploads');
 
 if (!function_exists('mime_content_type')) {
 
-    function mime_content_type($filename)
+    /**
+     * get the mime type of a file
+     * @param string $fileName
+     * @return string
+     */
+    function mime_content_type($fileName)
     {
-        $mime_types = array(
+        $mimeTypes = array(
 
             'txt' => 'text/plain',
             'htm' => 'text/html',
@@ -78,14 +83,14 @@ if (!function_exists('mime_content_type')) {
             'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
         );
 
-        $ext = strtolower(array_pop(explode('.', $filename)));
-        if (array_key_exists($ext, $mime_types)) {
-            return $mime_types[$ext];
+        $ext = strtolower(array_pop(explode('.', $fileName)));
+        if (array_key_exists($ext, $mimeTypes)) {
+            return $mimeTypes[$ext];
         } elseif (function_exists('finfo_open')) {
             $finfo = finfo_open(FILEINFO_MIME);
-            $mimetype = finfo_file($finfo, $filename);
+            $mimeType = finfo_file($finfo, $fileName);
             finfo_close($finfo);
-            return $mimetype;
+            return $mimeType;
         } else {
             return 'application/octet-stream';
         }

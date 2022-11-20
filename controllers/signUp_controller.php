@@ -20,6 +20,6 @@ if ($email && $password) {
         exit();
     } else {
         logEvent("SIGNUP-ERR", "User $username failed to create his account", "index.php?page=signup", LOG_LVL_VERBOSE);
-        $error = "Email invalid or already used";
+        $error = "Email or Username invalid or already used";
     }
 }
