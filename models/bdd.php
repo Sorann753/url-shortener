@@ -9,7 +9,6 @@ class Bdd
     public function __construct()
     {
         $this->pdo = getBdd();
-        logEvent("BDD", "Connected to database", "bdd.php", LOG_LVL_DEBUG);
     }
 
     public function __destruct()
@@ -242,7 +241,7 @@ class Bdd
      * Return the url object thanks to his id.
      *
      * @param int $id
-     * @return void
+     * @return stdClass
      */
     public function getUrlById($id)
     {

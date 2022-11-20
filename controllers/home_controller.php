@@ -41,42 +41,42 @@ if (isset($_POST['submit']) && strlen($url) === 0) {
         case UPLOAD_ERR_PARTIAL:
             logEvent("ERROR", "File only partially uploaded", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_NO_FILE:
             logEvent("ERROR", "No file was uploaded", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_EXTENSION:
             logEvent("ERROR", "File upload stopped by a PHP extension", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_FORM_SIZE:
             logEvent("ERROR", "File exceeds MAX_FILE_SIZE in the HTML form", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_INI_SIZE:
             logEvent("ERROR", "File exceeds upload_max_filesize in php.ini", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_NO_TMP_DIR:
             logEvent("ERROR", "Temporary folder not found", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_CANT_WRITE:
             logEvent("ERROR", "Failed to write file", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         default:
             logEvent("ERROR", "Unknown upload error", "index.php?page=home", LOG_LVL_ERROR);
             $error = "Something went wrong, your file could not be uploaded";
-            break;
+        break;
 
         case UPLOAD_ERR_OK:
             if (userConnected()) {
@@ -145,6 +145,6 @@ if (isset($_POST['submit']) && strlen($url) === 0) {
             } else {
                 $error = "To use the full potential of this website, you need to login / signup into your account.";
             }
-            break;
+        break;
     }
 }
