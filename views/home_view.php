@@ -39,7 +39,7 @@
                         <p>You can test this url, however it won't be saved since you're not connected</p>
                     <?php endif; ?>
 
-                    <a href="<?= $newShortUrl ?>" class="mb-0 text-center text-info mx-5 justify-content-center">
+                    <a href="<?= $newShortUrl ?>" class="mb-0 text-center text-info mx-5 justify-content-center" target="_blank">
                         <?= $newShortUrl ?>
                     </a>
                     <p>Or use this QR code</p>
