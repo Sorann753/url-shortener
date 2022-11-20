@@ -19,6 +19,10 @@
                 <a href="index.php?page=login" class="btn btn-outline-light me-2">Login</a>
                 <a href="index.php?page=signUp" class="btn btn-warning">Sign-up</a>
             <?php endif; ?>
+            <?php if ($page === 'profile') : ?>
+                <!-- Button trigger modal -->
+                <button href="index.php?page=profile" class="px-2 text-white btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#userDelete">Delete Account</button>
+            <?php endif; ?>
         </div>
     </nav>
     <?php if (isset($error)) { ?>

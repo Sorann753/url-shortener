@@ -149,13 +149,13 @@ class Bdd
     /**
      * Delete a user.
      *
-     * @param int $id
+     * @param string $email
      * @return boolean
      */
-    public function deleteUserByID($id): bool
+    public function deleteUserByEmail($email): bool
     {
-        $req = $this->pdo->prepare('DELETE FROM users WHERE id = ?');
-        $req->execute(array($id));
+        $req = $this->pdo->prepare('DELETE FROM users WHERE email = ?');
+        $req->execute(array($email));
         return $req->closeCursor();
     }
 

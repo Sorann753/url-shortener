@@ -8,6 +8,20 @@ if (userConnected()) {
     die();
 }
 
+// Delete User
+$deleteAccount = filter_input(INPUT_POST, 'deleteAccount');
+if (isset($deleteAccount) && userConnected()) {
+    $isDeleted = $bdd->deleteUserByEmail($_SESSION['user']);
+    unset($_SESSION['user']);
+    if ($isDeleted) {
+        logEvent("USER DELETED", "User [" . $_SESSION['user'] . "] has deleted his account", "index.php?page=profile");
+    } else {
+        logEvent("CRITICAL ERROR", "Error when deleting user", "index.php?page=profile", LOG_LVL_CRITICAL);
+    }
+    header("Location: index.php?page=home");
+    die();
+}
+
 // Delete
 $deleteId = filter_input(INPUT_GET, 'delete', FILTER_VALIDATE_INT);
 if ($deleteId) {

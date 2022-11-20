@@ -10,6 +10,26 @@
 
         <!-- CONTENT -->
         <main class="px-3">
+            <!-- Modal -->
+            <form class="modal fade" id="userDelete" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" method="POST">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-black" id="modalTitle">Deleting your Account</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-danger">
+                            Are you sure to delete your account ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-success" name="deleteAccount">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- TABLE -->
             <div class="rounded border p-3">
                 <table class="table table-dark table-striped table-hover">
                     <thead>
@@ -23,13 +43,13 @@
                     </thead>
                     <tbody>
                         <?php foreach ($urls as $url) : ?>
-                            <tr>
+                            <tr class="align-middle">
                                 <td><a href="<?= $url->url; ?>" class="text-decoration-none text-success"><?= $url->url; ?></a></td>
                                 <td><a href="<?= BASE_URL . '?url=' . $url->short_url; ?>" class="text-decoration-none text-info"><?= BASE_URL . '?url=' . $url->short_url; ?></a></td>
                                 <td><?= $url->nb_click; ?></td>
                                 <td>
-                                    <a href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode(BASE_URL . '?url=' . $url->short_url); ?>">
-                                        <img width="48" height="48" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode(BASE_URL . '?url=' . $url->short_url); ?>" alt="QR Code" class="mx-auto">
+                                    <a href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode(BASE_URL . '?url=' . $url->short_url); ?>" target="_blank">
+                                        <img width="52" height="52" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode(BASE_URL . '?url=' . $url->short_url); ?>" alt="QR Code" class="mx-auto rounded border p-1">
                                     </a>
                                 </td>
                                 <td>
