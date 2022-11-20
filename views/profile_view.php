@@ -44,8 +44,8 @@
                     <tbody>
                         <?php foreach ($urls as $url) : ?>
                             <tr class="align-middle">
-                                <td><a href="<?= $url->url; ?>" class="text-decoration-none text-success"><?= $url->url; ?></a></td>
-                                <td><a href="<?= BASE_URL . '?url=' . $url->short_url; ?>" class="text-decoration-none text-info"><?= BASE_URL . '?url=' . $url->short_url; ?></a></td>
+                                <td><a href="<?= $url->url; ?>" class="text-decoration-none text-success" target="_blank"><?= $url->url; ?></a></td>
+                                <td><a href="<?= BASE_URL . '?url=' . $url->short_url; ?>" class="text-decoration-none text-info" target="_blank"><?= BASE_URL . '?url=' . $url->short_url; ?></a></td>
                                 <td><?= $url->nb_click; ?></td>
                                 <td>
                                     <a href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode(BASE_URL . '?url=' . $url->short_url); ?>" target="_blank">

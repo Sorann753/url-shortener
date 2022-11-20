@@ -16,7 +16,7 @@ if ($username && $password) {
             $error = "Wrong password";
         }
     } else {
-        logEvent("LOGIN-ERR", "User [" . $_SESSION['user'] . "] failed to log in, user not found", "index.php?page=login", LOG_LVL_DEBUG);
+        logEvent("LOGIN-ERR", "Failed to log in, user not found", "index.php?page=login", LOG_LVL_DEBUG);
         $error = "Wrong credentials";
     }
 }
